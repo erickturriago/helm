@@ -1,0 +1,31 @@
+nameOverride: "atlas"
+fullnameOverride: "atlas"
+namespace: "production"
+
+image:
+  repository: 263788412267.dkr.ecr.us-east-2.amazonaws.com/orchestrator-layer/atlas
+  tag: "4"
+  pullPolicy: IfNotPresent
+
+replicaCount: 2
+
+labels:
+  component: orchestration-microservice
+  partOf: orchestration-layer
+
+config:
+  COREPACK_HOME: "/tmp/corepack"
+  XDG_CACHE_HOME: "/tmp/.cache"
+  HOME: "/tmp"
+
+service:
+  type: ClusterIP
+  port: 8082
+
+resources:
+  requests:
+    cpu: "500m"
+    memory: "512Mi"
+  limits:
+    cpu: "1000m"
+    memory: "1Gi"

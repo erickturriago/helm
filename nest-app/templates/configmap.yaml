@@ -1,6 +1,15 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: {{ .Values.name }}-configmap
+  name: {{ include "nest-app.fullname" . }}-configmap
+  namespace: {{ .Values.namespace }}
+  labels:
+    app.kubernetes.io/name: {{ include "nest-app.name" . }}
+    app.kubernetes.io/component: {{ .Values.labels.component }}
+    app.kubernetes.io/part-of: {{ .Values.labels.partOf }}
+  annotations:
+    puntored.com/config-version: "v1"
 data:
-  {{- toYaml .Values.configMapData | nindent 2 }}
+{{- range $key, $value := .Values.config }}
+  {{ $key }}: "{{ $value }}"
+{{- end }}

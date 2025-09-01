@@ -1,0 +1,39 @@
+nameOverride: "zeus"
+fullnameOverride: "zeus"
+namespace: "production"
+
+image:
+  repository: 263788412267.dkr.ecr.us-east-2.amazonaws.com/orchestrator-layer/zeus
+  tag: "5"   # Ejemplo: versión distinta en producción
+  pullPolicy: IfNotPresent
+
+replicaCount: 2
+
+labels:
+  component: otp-microservice
+  partOf: orchestration-layer
+
+config:
+  COREPACK_HOME: "/tmp/corepack"
+  XDG_CACHE_HOME: "/tmp/.cache"
+  HOME: "/tmp"
+
+service:
+  type: ClusterIP
+  port: 8081
+
+resources:
+  requests:
+    cpu: "500m"
+    memory: "512Mi"
+  limits:
+    cpu: "1000m"
+    memory: "1Gi"
+
+securityContext:
+  runAsNonRoot: true
+  runAsUser: 1000
+  runAsGroup: 1000
+  allowPrivilegeEscalation: false
+  readOnlyRootFilesystem: false
+  capabilities: ["ALL"]

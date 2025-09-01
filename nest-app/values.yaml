@@ -1,22 +1,32 @@
+nameOverride: ""
+fullnameOverride: ""
+
+namespace: quality
+
 replicaCount: 1
 
 image:
-  repository: my-nest-image
-  tag: latest
+  repository: node
+  tag: "22-slim"
   pullPolicy: IfNotPresent
 
 service:
   type: ClusterIP
-  port: 3000
+  port: 8081
 
-ingress:
-  enabled: false
-  className: ""
-  hosts:
-    - host: nest.local
-      paths:
-        - path: /
-          pathType: Prefix
-  tls: []
+resources:
+  requests:
+    cpu: "250m"
+    memory: "256Mi"
+  limits:
+    cpu: "500m"
+    memory: "512Mi"
 
-resources: {}
+labels:
+  component: otp-microservice
+  partOf: orchestration-layer
+
+config:
+  COREPACK_HOME: "/tmp/corepack"
+  XDG_CACHE_HOME: "/tmp/.cache"
+  HOME: "/tmp"

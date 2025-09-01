@@ -2,21 +2,64 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: {{ include "nest-app.fullname" . }}
+  namespace: {{ .Values.namespace }}
   labels:
-    app: {{ include "nest-app.name" . }}
+    app.kubernetes.io/name: {{ include "nest-app.name" . }}
+    app.kubernetes.io/component: {{ .Values.labels.component }}
+    app.kubernetes.io/part-of: {{ .Values.labels.partOf }}
 spec:
   replicas: {{ .Values.replicaCount }}
+  revisionHistoryLimit: 5
   selector:
     matchLabels:
-      app: {{ include "nest-app.name" . }}
+      app.kubernetes.io/name: {{ include "nest-app.name" . }}
+      app.kubernetes.io/component: {{ .Values.labels.component }}
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 0
+      maxSurge: 1
   template:
     metadata:
       labels:
-        app: {{ include "nest-app.name" . }}
+        app.kubernetes.io/name: {{ include "nest-app.name" . }}
+        app.kubernetes.io/component: {{ .Values.labels.component }}
+      annotations:
+        mycompany.com/config-version: "v1"
+        kubectl.kubernetes.io/default-container: {{ include "nest-app.name" . }}
     spec:
+      terminationGracePeriodSeconds: 30
       containers:
         - name: {{ include "nest-app.name" . }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
-            - containerPort: {{ .Values.service.port }}
+            - name: http
+              containerPort: {{ .Values.service.port }}
+          env:
+          {{- range $key, $value := .Values.config }}
+            - name: {{ $key }}
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ include "nest-app.fullname" $ }}-configmap
+                  key: {{ $key }}
+          {{- end }}
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: false
+            runAsNonRoot: true
+            runAsUser: 1000
+            runAsGroup: 1000
+            capabilities: { drop: ["ALL"] }
+            seccompProfile: { type: RuntimeDefault }
+          volumeMounts:
+            - name: tmp
+              mountPath: /tmp
+      securityContext:
+        fsGroup: 1000
+        seccompProfile: { type: RuntimeDefault }
+      volumes:
+        - name: tmp
+          emptyDir: {}
