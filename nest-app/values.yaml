@@ -1,0 +1,15 @@
+# --- Valores por defecto para cualquier aplicación ---
+
+name: "default-app-name"
+replicaCount: 1
+
+image:
+  repository: "your-registry/default-repo"
+  tag: "latest"
+
+service:
+  port: 80
+
+# Aquí defines las variables de entorno por defecto o de ejemplo
+configMapData:
+  EXAMPLE_VAR: "hello world"
