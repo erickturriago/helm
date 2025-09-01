@@ -3,8 +3,8 @@ fullnameOverride: "atlas"
 namespace: "quality"
 
 image:
-  repository: 263788412267.dkr.ecr.us-east-2.amazonaws.com/orchestrator-layer/atlas
-  tag: "1"
+  repository: node
+  tag: "22-slim"
   pullPolicy: IfNotPresent
 
 replicaCount: 1

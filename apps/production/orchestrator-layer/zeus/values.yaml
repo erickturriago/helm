@@ -3,8 +3,8 @@ fullnameOverride: "zeus"
 namespace: "production"
 
 image:
-  repository: 263788412267.dkr.ecr.us-east-2.amazonaws.com/orchestrator-layer/zeus
-  tag: "5"   # Ejemplo: versión distinta en producción
+  repository: node
+  tag: "22-slim"
   pullPolicy: IfNotPresent
 
 replicaCount: 2
