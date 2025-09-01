@@ -6,8 +6,8 @@ namespace: quality
 replicaCount: 1
 
 image:
-  repository: node
-  tag: "22-slim"
+  repository: nginx
+  tag: stable
   pullPolicy: IfNotPresent
 
 service:

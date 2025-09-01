@@ -3,8 +3,8 @@ fullnameOverride: "zeus"
 namespace: "quality"
 
 image:
-  repository: node
-  tag: "22-slim"
+  repository: nginx
+  tag: stable
   pullPolicy: IfNotPresent
 
 replicaCount: 1
