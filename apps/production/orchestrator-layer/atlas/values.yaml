@@ -20,7 +20,7 @@ config:
 
 service:
   type: ClusterIP
-  port: 8082
+  port: 80
 
 resources:
   requests:

@@ -20,7 +20,7 @@ config:
 
 service:
   type: ClusterIP
-  port: 8082   # cambia según app
+  port: 80   # cambia según app
 
 resources:
   requests:
