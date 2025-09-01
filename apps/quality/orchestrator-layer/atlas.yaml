@@ -1,0 +1,11 @@
+image:
+  repository: my-registry/atlas
+  tag: "qa-1.0.0"
+
+ingress:
+  enabled: true
+  hosts:
+    - host: atlas-qa.midominio.com
+      paths:
+        - path: /
+          pathType: Prefix

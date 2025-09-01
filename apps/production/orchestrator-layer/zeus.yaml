@@ -1,23 +1,24 @@
-# --- Configuración para la aplicación "zeus" en el entorno de "quality" ---
-
-# Nombre de la aplicación y de los recursos que se crearán
-name: zeus
-
-# Cantidad de réplicas para este entorno
-replicaCount: 1
-
-# ¡Esta es la sección clave que tu CI/CD actualizará!
-image:
-  repository: "mi-artifact-registry/atlas-zeus"
-  tag: "v1.2.5-beta" # Tu pipeline reemplazará este valor
-
-# Puerto que expone la aplicación
-service:
-  port: 3000
-
-# Variables de entorno específicas para zeus en quality
-configMapData:
-  NODE_ENV: "quality"
-  LOG_LEVEL: "info"
-  ATLAS_API_URL: "http://atlas.svc.cluster.local"
-  DATABASE_HOST: "zeus-db-qa.internal"
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: zeus-production
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: 'https://github.com/TU_ORG/TU_REPO_HELM.git'
+    targetRevision: HEAD
+    path: zeus
+    helm:
+      releaseName: zeus-production
+      valueFiles:
+        - ../../apps/production/orchestrator-layer/zeus-values.yaml
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: zeus-production
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true

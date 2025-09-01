@@ -1,0 +1,11 @@
+image:
+  repository: my-registry/zeus
+  tag: "prod-2.3.1"
+
+ingress:
+  enabled: true
+  hosts:
+    - host: zeus.midominio.com
+      paths:
+        - path: /
+          pathType: Prefix

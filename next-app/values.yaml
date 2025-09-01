@@ -1,7 +1,7 @@
 replicaCount: 1
 
 image:
-  repository: my-nest-image
+  repository: my-next-image
   tag: latest
   pullPolicy: IfNotPresent
 
@@ -13,10 +13,16 @@ ingress:
   enabled: false
   className: ""
   hosts:
-    - host: nest.local
+    - host: next.local
       paths:
         - path: /
           pathType: Prefix
   tls: []
 
-resources: {}
+resources:
+  requests:
+    cpu: "100m"
+    memory: "256Mi"
+  limits:
+    cpu: "500m"
+    memory: "512Mi"
