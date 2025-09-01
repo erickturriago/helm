@@ -1,11 +1,21 @@
-image:
-  repository: nginx
-  tag: latest
-
-service:
+app:
+  name: zeus
+  namespace: production
+  component: otp-microservice
+  partOf: orchestration-layer
+  image:
+    repository: docker.io/library/nginx
+    tag: stable
+  replicas: 1
   port: 8081
-
-config:
-  APP_NAME: "zeus"
-  APP_ENV: "production"
-  LAYER: "orchestration-layer"
+  config:
+    COREPACK_HOME: "/tmp/corepack"
+    XDG_CACHE_HOME: "/tmp/.cache"
+    HOME: "/tmp"
+  resources:
+    requests:
+      cpu: "250m"
+      memory: "256Mi"
+    limits:
+      cpu: "500m"
+      memory: "512Mi"

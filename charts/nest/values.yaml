@@ -1,13 +1,14 @@
+# Valores por defecto genéricos
 app:
-  name: zeus
-  namespace: quality
-  component: otp-microservice
+  name: myapp
+  namespace: default
+  component: mycomponent
   partOf: orchestration-layer
   image:
     repository: nginx
-    tag: stable-alpine
+    tag: stable
   replicas: 1
-  port: 80
+  port: 8080
   config:
     COREPACK_HOME: "/tmp/corepack"
     XDG_CACHE_HOME: "/tmp/.cache"

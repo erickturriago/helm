@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Values.app.name }}-configmap
+  namespace: {{ .Values.app.namespace }}
+  labels:
+    app.kubernetes.io/name: {{ .Values.app.name }}
+    app.kubernetes.io/component: {{ .Values.app.component }}
+    app.kubernetes.io/part-of: {{ .Values.app.partOf }}
+data:
+  COREPACK_HOME: {{ .Values.app.config.COREPACK_HOME | quote }}
+  XDG_CACHE_HOME: {{ .Values.app.config.XDG_CACHE_HOME | quote }}
+  HOME: {{ .Values.app.config.HOME | quote }}
