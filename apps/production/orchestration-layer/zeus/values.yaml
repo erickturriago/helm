@@ -1,0 +1,11 @@
+image:
+  repository: myrepo/zeus
+  tag: 1.0.0
+
+service:
+  port: 8081
+
+config:
+  APP_NAME: "zeus"
+  APP_ENV: "production"
+  LAYER: "orchestration-layer"

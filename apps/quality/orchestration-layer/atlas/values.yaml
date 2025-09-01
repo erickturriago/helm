@@ -1,0 +1,11 @@
+image:
+  repository: myrepo/atlas
+  tag: 1.0.0
+
+service:
+  port: 8080
+
+config:
+  APP_NAME: "atlas"
+  APP_ENV: "quality"
+  LAYER: "orchestration-layer"
