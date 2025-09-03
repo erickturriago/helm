@@ -1,21 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: my-node-app
+  name: {{.Chart.Name}}
   labels:
-    app: my-node-app
+    app: {{.Chart.Name}}
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      app: my-node-app
+      app: {{.Chart.Name}}
   template:
     metadata:
       labels:
-        app: my-node-app
+        app: {{.Chart.Name}}
     spec:
       containers:
-        - name: my-node-app
+        - name: {{.Chart.Name}}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
@@ -28,7 +28,7 @@ spec:
             - name: APP_MESSAGE
               valueFrom:
                 configMapKeyRef:
-                  name: my-node-app-config
+                  name: {{.Chart.Name}}-config
                   key: APP_MESSAGE
           resources:
 {{ toYaml .Values.resources | indent 12 }}
