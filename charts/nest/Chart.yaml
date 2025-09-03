@@ -1,6 +1,0 @@
-apiVersion: v2
-name: nest
-description: "Chart genérico para aplicaciones de la capa de orquestación (Nest/Next)"
-type: application
-version: 0.1.0
-appVersion: "1.0"

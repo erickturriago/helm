@@ -1,0 +1,36 @@
+# Archivos del sistema
+.DS_Store
+
+# Control de versiones
+.git/
+.gitignore
+.bzr/
+.bzrignore
+.hg/
+.hgignore
+.svn/
+
+# Archivos temporales / backup
+*.swp
+*.bak
+*.tmp
+*.orig
+*~
+
+# IDEs
+.project
+.idea/
+*.tmproj
+.vscode/
+
+# Node.js
+node_modules/
+npm-debug.log
+yarn-error.log
+package-lock.json
+
+# Binarios grandes
+*.exe
+*.dll
+*.so
+*.dylib

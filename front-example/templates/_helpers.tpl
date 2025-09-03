@@ -1,7 +1,7 @@
 {{/*
 Expand the name of the chart.
 */}}
-{{- define "generic-app.name" -}}
+{{- define "front-example.name" -}}
 {{- default .Chart.Name .Values.nameOverride | trunc 63 | trimSuffix "-" }}
 {{- end }}
 
@@ -10,7 +10,7 @@ Create a default fully qualified app name.
 We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
 If release name contains chart name it will be used as a full name.
 */}}
-{{- define "generic-app.fullname" -}}
+{{- define "front-example.fullname" -}}
 {{- if .Values.fullnameOverride }}
 {{- .Values.fullnameOverride | trunc 63 | trimSuffix "-" }}
 {{- else }}
@@ -26,16 +26,16 @@ If release name contains chart name it will be used as a full name.
 {{/*
 Create chart name and version as used by the chart label.
 */}}
-{{- define "generic-app.chart" -}}
+{{- define "front-example.chart" -}}
 {{- printf "%s-%s" .Chart.Name .Chart.Version | replace "+" "_" | trunc 63 | trimSuffix "-" }}
 {{- end }}
 
 {{/*
 Common labels
 */}}
-{{- define "generic-app.labels" -}}
-helm.sh/chart: {{ include "generic-app.chart" . }}
-{{ include "generic-app.selectorLabels" . }}
+{{- define "front-example.labels" -}}
+helm.sh/chart: {{ include "front-example.chart" . }}
+{{ include "front-example.selectorLabels" . }}
 {{- if .Chart.AppVersion }}
 app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
 {{- end }}
@@ -45,17 +45,17 @@ app.kubernetes.io/managed-by: {{ .Release.Service }}
 {{/*
 Selector labels
 */}}
-{{- define "generic-app.selectorLabels" -}}
-app.kubernetes.io/name: {{ include "generic-app.name" . }}
+{{- define "front-example.selectorLabels" -}}
+app.kubernetes.io/name: {{ include "front-example.name" . }}
 app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end }}
 
 {{/*
 Create the name of the service account to use
 */}}
-{{- define "generic-app.serviceAccountName" -}}
+{{- define "front-example.serviceAccountName" -}}
 {{- if .Values.serviceAccount.create }}
-{{- default (include "generic-app.fullname" .) .Values.serviceAccount.name }}
+{{- default (include "front-example.fullname" .) .Values.serviceAccount.name }}
 {{- else }}
 {{- default "default" .Values.serviceAccount.name }}
 {{- end }}
